@@ -76,11 +76,11 @@ class LayerNorm(Module):
         """
         # Initialize parent class
         super().__init__()
-            
+
         # Store basic parameters
         self.eps = eps
         self.elementwise_affine = elementwise_affine
-            
+
         # TODO: Process normalized_shape and initialize parameters
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -123,7 +123,27 @@ class LayerNorm(Module):
         """
         # Validate input shape matches normalized_shape
         assert self.normalized_shape == x.shape[-len(self.normalized_shape):]
-            
+
         # TODO: Implement layer normalization logic
-            
+
         return None  # Replace with actual normalized tensor
+
+
+def _test():
+    """
+    Simple test
+    """
+    from labml.logger import inspect
+
+    x = torch.zeros([2, 3, 2, 4])
+    inspect(x.shape)
+    ln = LayerNorm(x.shape[2:])
+
+    x = ln(x)
+    inspect(x.shape)
+    inspect(ln.gain.shape)
+
+
+#
+if __name__ == "__main__":
+    _test()
